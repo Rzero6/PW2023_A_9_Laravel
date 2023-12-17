@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('mobils', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_cabang')->constrained('cabangs', 'id')->onDelete('no action');
+            $table->string("tipe");
             $table->string("nama");
-            $table->string("merk");
-            $table->integer("tahun_buat");
-            $table->integer("no_polisi");
-            $table->string("warna");
+            $table->double("harga_sewa");
+            $table->integer("tahun");
             $table->string("bahan_bakar");
             $table->integer("jml_tempat_duduk");
-            $table->integer("harga_sewa");
             $table->string("transmisi");
-            $table->string("tipe");
-            $table->integer("status");
+            $table->string("no_polisi");
+            $table->string('image');
+            $table->boolean("disewa");
             $table->timestamps();
         });
     }

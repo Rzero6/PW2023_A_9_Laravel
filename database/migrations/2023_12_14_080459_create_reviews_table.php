@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_mobil')->constrained('mobils', 'id')->onDelete('cascade');
+            $table->foreignId('id_user')->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('id_transaksi')->constrained('transaksis', 'id')->onDelete('cascade');
             $table->integer("rating");
             $table->string("komen");
-            $table->integer("waktu");
             $table->timestamps();
         });
     }
