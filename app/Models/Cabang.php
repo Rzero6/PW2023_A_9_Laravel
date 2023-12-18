@@ -10,7 +10,6 @@ class Cabang extends Model
     use HasFactory;
     protected $fillable = [
         'nama',
-        'password',
         'alamat',
         'kota',
     ];

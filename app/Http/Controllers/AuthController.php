@@ -29,7 +29,7 @@ class AuthController extends Controller
             $registrationData['password'] = bcrypt($request->password);
             $registrationData['menyewa'] = false;
             $registrationData['profil_pic'] = 'https://picsum.photos/200';
-
+            $registrationData['role'] = 0;
             $user = User::create($registrationData);
             $details = [
                 'username' => $user->nama,
@@ -64,6 +64,72 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
+    {
+        $loginData = $request->all();
+
+        $validate = Validator::make($loginData, [
+            "email" => "required|email:rfc,dns",
+            "password" => "required",
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'message' => $validate->errors(),
+            ], 400);
+        }
+
+        if (!Auth::attempt($loginData)) {
+            return response()->json([
+                'message' => 'Email atau Password salah',
+            ], 401);
+        }
+
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $token = $user->createToken('Authentication Token')->accessToken;
+
+        return response()->json([
+            'message' => 'Authenticated',
+            'user' => $user,
+            'token_type' => 'Bearer',
+            'access_token' => $token,
+        ]);
+    }
+
+    public function registerAdmin(Request $request)
+    {
+        try {
+
+            $str = Str::random(100);
+            $registrationData = $request->all();
+            $registrationData['verify_key'] = $str;
+            $validate = Validator::make($registrationData, [
+                'nama' => 'required',
+                'email' => 'required|email:rfc,dns|unique:users',
+                'password' => 'required',
+            ]);
+
+            if ($validate->fails()) new \Exception($validate->errors());
+            $registrationData['password'] = bcrypt($request->password);
+            $registrationData['menyewa'] = false;
+            $registrationData['profil_pic'] = 'https://picsum.photos/200';
+            $registrationData['role'] = 1;
+            $registrationData['email_verified_at'] = date('Y-m-d H:i:s');
+            $user = User::create($registrationData);
+
+            return response()->json([
+                'message' => 'Register Success',
+                'data' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function loginAdmin(Request $request)
     {
         $loginData = $request->all();
 
