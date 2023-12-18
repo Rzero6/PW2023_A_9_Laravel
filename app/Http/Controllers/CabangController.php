@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sewa;
+use App\Models\Cabang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class SewaController extends Controller
+class CabangController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        try{
-            $sewa = Sewa::all();
+        try {
+            $cabang = Cabang::all();
             return response()->json([
                 "status" => true,
-                "message" => 'Berhasil ambil data', 
-                "data" => $sewa
+                "message" => 'Berhasil ambil data',
+                "data" => $cabang
             ], 200); //status code 200 = success
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
                 "massage" => $e->getMessage(),
@@ -34,16 +34,23 @@ class SewaController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            //$request->all() untuk mengambil semua input dalam request body
-            $sewa = Sewa::create($request->all());
+        try {
+            $storeData = $request->all();
+            $validate = Validator::make($storeData, [
+                'nama' => 'required|max:60',
+                'alamat' => 'required',
+                'kota' => 'required',
+            ]);
+            if ($validate->fails()) {
+                return response()->json(['message' => $validate->errors()], 400);
+            }
+            $cabang = Cabang::create($request->all());
             return response()->json([
                 "status" => true,
-                "message" => 'Berhasil ambil data', 
-                "data" => $sewa
+                "message" => 'Berhasil insert data',
+                "data" => $cabang
             ], 200); //status code 200 = success
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
                 "massage" => $e->getMessage(),
@@ -57,18 +64,17 @@ class SewaController extends Controller
      */
     public function show($id)
     {
-        try{
-            $sewa = Sewa::find($id);
+        try {
+            $cabang = Cabang::find($id);
 
-            if(!$sewa) throw new \Exception("ID tidak ditemukan");
-            
+            if (!$cabang) throw new \Exception("Cabang tidak ditemukan");
+
             return response()->json([
                 "status" => true,
-                "message" => 'Berhasil ambil data', 
-                "data" => $sewa
+                "message" => 'Berhasil ambil data',
+                "data" => $cabang
             ], 200); //status code 200 = success
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
                 "massage" => $e->getMessage(),
@@ -82,20 +88,26 @@ class SewaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
-            $sewa = Sewa::find($id);
+        try {
+            $cabang = Cabang::find($id);
 
-            if(!$sewa) throw new \Exception("ID tidak ditemukan");
-            
-            $sewa->update($request->all());
-
+            if (!$cabang) throw new \Exception("Cabang tidak ditemukan");
+            $updatedData = $request->all();
+            $validate = Validator::make($updatedData, [
+                'nama' => 'required|max:60',
+                'alamat' => 'required',
+                'kota' => 'required',
+            ]);
+            if ($validate->fails()) {
+                return response()->json(['message' => $validate->errors()], 400);
+            }
+            $cabang->update($updatedData);
             return response()->json([
                 "status" => true,
-                "message" => 'Berhasil ambil data', 
-                "data" => $sewa
+                "message" => 'Berhasil ambil data',
+                "data" => $cabang
             ], 200); //status code 200 = success
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
                 "massage" => $e->getMessage(),
@@ -109,20 +121,18 @@ class SewaController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $sewa = Sewa::find($id);
+        try {
+            $cabang = Cabang::find($id);
 
-            if(!$sewa) throw new \Exception("ID tidak ditemukan");
-            
-            $sewa->delete();
+            if (!$cabang) throw new \Exception("Cabang tidak ditemukan");
 
+            $cabang->delete();
             return response()->json([
                 "status" => true,
-                "message" => 'Berhasil ambil data', 
-                "data" => $sewa
+                "message" => 'Berhasil ambil data',
+                "data" => $cabang
             ], 200); //status code 200 = success
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
                 "massage" => $e->getMessage(),

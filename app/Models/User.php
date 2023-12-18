@@ -24,6 +24,7 @@ class User extends Authenticatable
         'verify_key',
         'profil_pic',
         'menyewa',
+        'role',
     ];
 
     /**
