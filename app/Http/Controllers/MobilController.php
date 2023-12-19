@@ -107,6 +107,30 @@ class MobilController extends Controller
         }
     }
 
+    public function showMobilByCabang($id)
+    {
+        try {
+            $cabang = Mobil::find($id);
+
+            if (!$cabang) {
+                throw new \Exception("Cabang tidak ditemukan");
+            }
+            $mobil = Mobil::where('id_cabang', $id)->get();
+
+            return response()->json([
+                "status" => true,
+                "message" => 'Berhasil ambil data',
+                "data" => $mobil
+            ], 200); //status code 200 = success
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => false,
+                "massage" => $e->getMessage(),
+                "data" => []
+            ], 400); //status code 400 = bad request
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      */

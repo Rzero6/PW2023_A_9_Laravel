@@ -37,6 +37,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/mobil', [MobilController::class, 'index']);
     Route::post('/mobil', [MobilController::class, 'store']);
     Route::get('/mobil/{id}', [MobilController::class, 'show']);
+    Route::get('/mobil/cabang/{id}', [MobilController::class, 'showMobilByCabang']);
     Route::patch('/mobil/{id}', [MobilController::class, 'update']);
     Route::delete('/mobil/{id}', [MobilController::class, 'destroy']);
 
