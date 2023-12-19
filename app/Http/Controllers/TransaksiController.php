@@ -101,6 +101,10 @@ class TransaksiController extends Controller
             $mobil->disewa = 1;
             $mobil->save();
 
+            //Update status user menyewa
+            $user->menyewa = 1;
+            $user->save();
+
             $transaksi = Transaksi::create($storeData);
 
             return response()->json([
@@ -171,7 +175,6 @@ class TransaksiController extends Controller
     {
         try {
             $transaksi = Transaksi::find($id);
-
             if (!$transaksi) throw new \Exception("Transaksi tidak ditemukan");
 
             $transaksi->status = $request->status;
@@ -180,8 +183,12 @@ class TransaksiController extends Controller
             if ($request->status === 'selesai') {
                 $mobil = Mobil::find($transaksi->id_mobil);
                 if (!$mobil) throw new \Exception("Mobil tidak ditemukan");
+                $user = User::find($transaksi->id_peminjam);
+                if (!$user) throw new \Exception("User tidak ditemukan");
                 $mobil->disewa = 0;
                 $mobil->save();
+                $user->menyewa = 0;
+                $user->save();
             }
 
             return response()->json([
