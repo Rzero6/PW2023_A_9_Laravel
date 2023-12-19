@@ -157,7 +157,7 @@ class ReviewController extends Controller
 
             return response()->json([
                 "status" => true,
-                "message" => 'Berhasil ambil data',
+                "message" => 'Berhasil hapus data',
                 "data" => $review
             ], 200); //status code 200 = success
         } catch (\Exception $e) {

@@ -5,6 +5,7 @@ use App\Http\Controllers\CabangController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +53,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/review/mobil/{id}', [ReviewController::class, 'showByMobil']);
     Route::patch('/review/{id}', [ReviewController::class, 'update']);
     Route::delete('/review/{id}', [ReviewController::class, 'destroy']);
+
+    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::patch('/user/{id}', [UserController::class, 'update']);
+    Route::delete('/user/{id}', [UserController::class, 'destroy']);
 });

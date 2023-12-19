@@ -2,53 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cabang;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class CabangController extends Controller
+class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         try {
-            $cabang = Cabang::all();
+            $users = User::where('role', 0)->get();
             return response()->json([
                 "status" => true,
                 "message" => 'Berhasil ambil data',
-                "data" => $cabang
-            ], 200); //status code 200 = success
-        } catch (\Exception $e) {
-            return response()->json([
-                "status" => false,
-                "massage" => $e->getMessage(),
-                "data" => []
-            ], 400); //status code 400 = bad request
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        try {
-            $storeData = $request->all();
-            $validate = Validator::make($storeData, [
-                'nama' => 'required|max:60',
-                'alamat' => 'required',
-                'kota' => 'required',
-            ]);
-            if ($validate->fails()) {
-                return response()->json(['message' => $validate->errors()], 400);
-            }
-            $cabang = Cabang::create($request->all());
-            return response()->json([
-                "status" => true,
-                "message" => 'Berhasil insert data',
-                "data" => $cabang
+                "data" => $users
             ], 200); //status code 200 = success
         } catch (\Exception $e) {
             return response()->json([
@@ -65,14 +33,14 @@ class CabangController extends Controller
     public function show($id)
     {
         try {
-            $cabang = Cabang::find($id);
+            $user = User::find($id);
 
-            if (!$cabang) throw new \Exception("Cabang tidak ditemukan");
+            if (!$user) throw new \Exception("User tidak ditemukan");
 
             return response()->json([
                 "status" => true,
                 "message" => 'Berhasil ambil data',
-                "data" => $cabang
+                "data" => $user
             ], 200); //status code 200 = success
         } catch (\Exception $e) {
             return response()->json([
@@ -89,23 +57,48 @@ class CabangController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $cabang = Cabang::find($id);
+            $user = User::find($id);
 
-            if (!$cabang) throw new \Exception("Cabang tidak ditemukan");
-            $updatedData = $request->all();
-            $validate = Validator::make($updatedData, [
-                'nama' => 'required|max:60',
-                'alamat' => 'required',
-                'kota' => 'required',
+            if (!$user) throw new \Exception("User tidak ditemukan");
+            $updatedData = $request->only([
+                'nama', 'email', 'password', 'profil_pic'
             ]);
+            $rules = [
+                'nama' => 'sometimes|required',
+                'email' => 'sometimes|required|email:rfc,dns|unique:users,email,' . $id,
+                'password' => 'sometimes|required|min:8',
+                'profil_pic' => 'sometimes|required|image:jpeg,png,jpg,gif,svg|max:2048',
+            ];
+            $validate = Validator::make($updatedData, $rules);
             if ($validate->fails()) {
                 return response()->json(['message' => $validate->errors()], 400);
             }
-            $cabang->update($updatedData);
+            if ($request->has('password') && $request->password !== null) {
+                $updatedData['password'] = bcrypt($request->password);
+            }
+            foreach ($updatedData as $key => $value) {
+                if ($request->has($key)) {
+                    $user->{$key} = $value;
+                }
+            }
+            if ($request->hasFile('image')) {
+                if ($user->image !== null) {
+                    $filename = basename($user->image);
+                    if (Storage::disk('public')->exists('user/' . $filename)) {
+                        Storage::disk('public')->delete('user/' . $filename);
+                    }
+                }
+                $uploadFolder = 'user';
+                $image = $request->file('image');
+                $image_uploaded_path = $image->store($uploadFolder, 'public');
+                $uploadedImageResponse = basename($image_uploaded_path);
+                $user->image = $uploadedImageResponse;
+            }
+            $user->save();
             return response()->json([
                 "status" => true,
                 "message" => 'Berhasil update data',
-                "data" => $cabang
+                "data" => $user
             ], 200); //status code 200 = success
         } catch (\Exception $e) {
             return response()->json([
@@ -122,15 +115,15 @@ class CabangController extends Controller
     public function destroy($id)
     {
         try {
-            $cabang = Cabang::find($id);
+            $user = User::find($id);
 
-            if (!$cabang) throw new \Exception("Cabang tidak ditemukan");
+            if (!$user) throw new \Exception("User tidak ditemukan");
 
-            $cabang->delete();
+            $user->delete();
             return response()->json([
                 "status" => true,
                 "message" => 'Berhasil hapus data',
-                "data" => $cabang
+                "data" => $user
             ], 200); //status code 200 = success
         } catch (\Exception $e) {
             return response()->json([

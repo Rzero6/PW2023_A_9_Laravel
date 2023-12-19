@@ -212,7 +212,7 @@ class TransaksiController extends Controller
 
             return response()->json([
                 "status" => true,
-                "message" => 'Berhasil delete data',
+                "message" => 'Berhasil hapus data',
                 "data" => $transaksi
             ], 200); //status code 200 = success
         } catch (\Exception $e) {

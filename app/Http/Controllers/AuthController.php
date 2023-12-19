@@ -22,7 +22,7 @@ class AuthController extends Controller
             $validate = Validator::make($registrationData, [
                 'nama' => 'required',
                 'email' => 'required|email:rfc,dns|unique:users',
-                'password' => 'required',
+                'password' => 'required|min:8',
             ]);
 
             if ($validate->fails()) new \Exception($validate->errors());
@@ -111,7 +111,7 @@ class AuthController extends Controller
             $validate = Validator::make($registrationData, [
                 'nama' => 'required',
                 'email' => 'required|email:rfc,dns|unique:users',
-                'password' => 'required',
+                'password' => 'required|min:8',
             ]);
 
             if ($validate->fails()) new \Exception($validate->errors());
