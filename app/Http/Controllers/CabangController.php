@@ -104,7 +104,7 @@ class CabangController extends Controller
             $cabang->update($updatedData);
             return response()->json([
                 "status" => true,
-                "message" => 'Berhasil ambil data',
+                "message" => 'Berhasil update data',
                 "data" => $cabang
             ], 200); //status code 200 = success
         } catch (\Exception $e) {

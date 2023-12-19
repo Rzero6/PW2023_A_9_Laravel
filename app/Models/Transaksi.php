@@ -19,10 +19,11 @@ class Transaksi extends Model
         'metode_pembayaran',
         'details',
         'mobil',
-        'user',
+        'peminjam',
         'pickup',
         'dropoff',
         'total',
+        'status',
     ];
 
     public function mobil()

@@ -86,6 +86,11 @@ class AuthController extends Controller
 
         /** @var \App\Models\User $user **/
         $user = Auth::user();
+        if ($user->email_verified_at === null) {
+            return response()->json([
+                'message' => 'Email belum diverifikasi'
+            ], 401);
+        }
         $token = $user->createToken('Authentication Token')->accessToken;
 
         return response()->json([
@@ -93,7 +98,7 @@ class AuthController extends Controller
             'user' => $user,
             'token_type' => 'Bearer',
             'access_token' => $token,
-        ]);
+        ], 200);
     }
 
     public function registerAdmin(Request $request)
@@ -152,6 +157,11 @@ class AuthController extends Controller
 
         /** @var \App\Models\User $user **/
         $user = Auth::user();
+        if ($user->role === 0) {
+            return response()->json([
+                'message' => 'Not Authorized'
+            ], 401);
+        }
         $token = $user->createToken('Authentication Token')->accessToken;
 
         return response()->json([
@@ -159,6 +169,6 @@ class AuthController extends Controller
             'user' => $user,
             'token_type' => 'Bearer',
             'access_token' => $token,
-        ]);
+        ], 200);
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("tipe");
             $table->string("nama");
             $table->double("harga_sewa");
-            $table->integer("tahun");
+            $table->year("tahun");
             $table->string("bahan_bakar");
             $table->integer("jml_tempat_duduk");
             $table->string("transmisi");

@@ -22,10 +22,11 @@ return new class extends Migration
             $table->string('metode_pembayaran');
             $table->string('details');
             $table->string('mobil');
-            $table->string('user');
+            $table->string('peminjam');
             $table->string('pickup');
             $table->string('dropoff');
             $table->double('total');
+            $table->string('status');
             $table->timestamps();
         });
     }
