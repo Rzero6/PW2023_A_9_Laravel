@@ -110,7 +110,7 @@ class MobilController extends Controller
     public function showMobilByCabang($id)
     {
         try {
-            $cabang = Mobil::find($id);
+            $cabang = Cabang::find($id);
 
             if (!$cabang) {
                 throw new \Exception("Cabang tidak ditemukan");
