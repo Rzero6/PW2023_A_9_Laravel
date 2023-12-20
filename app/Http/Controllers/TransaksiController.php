@@ -27,7 +27,7 @@ class TransaksiController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -115,7 +115,7 @@ class TransaksiController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -139,7 +139,7 @@ class TransaksiController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -174,13 +174,16 @@ class TransaksiController extends Controller
     public function updateStatus(Request $request,  $id)
     {
         try {
+            $request->validate([
+                'status' => 'required|in:berjalan,selesai,batal,dinilai',
+            ]);
             $transaksi = Transaksi::find($id);
             if (!$transaksi) throw new \Exception("Transaksi tidak ditemukan");
 
             $transaksi->status = $request->status;
             $transaksi->save();
 
-            if ($request->status === 'selesai') {
+            if ($request->status === 'selesai' || $request->status === 'batal') {
                 $mobil = Mobil::find($transaksi->id_mobil);
                 if (!$mobil) throw new \Exception("Mobil tidak ditemukan");
                 $user = User::find($transaksi->id_peminjam);
@@ -199,7 +202,7 @@ class TransaksiController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -225,7 +228,7 @@ class TransaksiController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }

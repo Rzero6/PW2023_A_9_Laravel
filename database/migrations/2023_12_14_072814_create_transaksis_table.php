@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mobil')->constrained('mobils', 'id')->onDelete('no action');
-            $table->foreignId('id_peminjam')->constrained('users', 'id')->onDelete('no action');
-            $table->foreignId('id_cabang_pickup')->constrained('cabangs', 'id')->onDelete('no action');
-            $table->foreignId('id_cabang_dropoff')->constrained('cabangs', 'id')->onDelete('no action');
+            $table->foreignId('id_mobil')->constrained('mobils', 'id')->onDelete('cascade');
+            $table->foreignId('id_peminjam')->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('id_cabang_pickup')->constrained('cabangs', 'id')->onDelete('cascade');
+            $table->foreignId('id_cabang_dropoff')->constrained('cabangs', 'id')->onDelete('cascade');
             $table->date('waktu_pickup');
             $table->date('waktu_dropoff');
             $table->string('metode_pembayaran');

@@ -23,7 +23,7 @@ class CabangController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -53,7 +53,7 @@ class CabangController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -77,7 +77,7 @@ class CabangController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -110,7 +110,7 @@ class CabangController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -135,7 +135,7 @@ class CabangController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }

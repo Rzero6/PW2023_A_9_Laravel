@@ -25,7 +25,7 @@ class MobilController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -43,7 +43,7 @@ class MobilController extends Controller
             $storeData['transmisi'] = strtolower($request->transmisi);
             $validate = Validator::make($storeData, [
                 'id_cabang' => 'required|numeric',
-                'tipe' => 'required|in:suv,hatchback,sedan,sport,convertible,truck,off road',
+                'tipe' => 'required|in:suv,hatchback,sedan,sport,convertible,truck,off road, mpv',
                 'nama' => 'required|max:60',
                 'harga_sewa' => 'required|numeric',
                 'tahun' => 'required|date_format:Y',
@@ -77,7 +77,7 @@ class MobilController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -101,7 +101,7 @@ class MobilController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -125,7 +125,7 @@ class MobilController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -146,12 +146,12 @@ class MobilController extends Controller
 
             $updateData = $request->only([
                 'id_cabang', 'tipe', 'nama', 'harga_sewa', 'tahun',
-                'bahan_bakar', 'jml_tempat_duduk', 'transmisi', 'no_polisi', 'image', 'disewa'
+                'bahan_bakar', 'jml_tempat_duduk', 'transmisi', 'no_polisi', 'disewa'
             ]);
 
             $rules = [
                 'id_cabang' => 'sometimes|required|numeric',
-                'tipe' => 'sometimes|required|in:suv,hatchback,sedan,sport,convertible,truck,off road',
+                'tipe' => 'sometimes|required|in:suv,hatchback,sedan,sport,convertible,truck,off road, mpv',
                 'nama' => 'sometimes|required|max:60',
                 'harga_sewa' => 'sometimes|required|numeric',
                 'tahun' => 'sometimes|required|date_format:Y',
@@ -159,7 +159,6 @@ class MobilController extends Controller
                 'jml_tempat_duduk' => 'sometimes|required|numeric',
                 'transmisi' => 'sometimes|required|in:manual,matic',
                 'no_polisi' => 'sometimes|required|max:10',
-                'image' => 'sometimes|required|image:jpeg,png,jpg,gif,svg|max:2048',
                 'disewa' => 'sometimes|required|boolean',
             ];
 
@@ -173,20 +172,6 @@ class MobilController extends Controller
                 if ($request->has($key)) {
                     $mobil->{$key} = $value;
                 }
-            }
-
-            if ($request->hasFile('image')) {
-                if ($mobil->image !== null) {
-                    $filename = basename($mobil->image);
-                    if (Storage::disk('public')->exists('mobil/' . $filename)) {
-                        Storage::disk('public')->delete('mobil/' . $filename);
-                    }
-                }
-                $uploadFolder = 'mobil';
-                $image = $request->file('image');
-                $image_uploaded_path = $image->store($uploadFolder, 'public');
-                $uploadedImageResponse = basename($image_uploaded_path);
-                $mobil->image = $uploadedImageResponse;
             }
 
             $mobil->save();
@@ -233,7 +218,7 @@ class MobilController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }

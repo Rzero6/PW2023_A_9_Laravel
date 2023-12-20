@@ -25,7 +25,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -53,7 +53,7 @@ class ReviewController extends Controller
             $storeData['id_user'] = $idUser;
 
             $review = Review::create($storeData);
-            $transaksi->status = 'reviewed';
+            $transaksi->status = 'dinilai';
             $transaksi->save();
 
             return response()->json([
@@ -64,7 +64,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -88,7 +88,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -107,7 +107,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -137,7 +137,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
@@ -163,7 +163,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
-                "massage" => $e->getMessage(),
+                "message" => $e->getMessage(),
                 "data" => []
             ], 400); //status code 400 = bad request
         }
