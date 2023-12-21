@@ -2,65 +2,66 @@
 
 ## Kelas A Kelompok 9
 
-## Anggota Kelompok:
+### Anggota Kelompok:
 
-- Kevin Valencio Patsy (210711013) - frontend
-- Reynold Kunarto (210711015) - fullstack + hosting
-- Marselinus Dira Agaska (210711058) - frontend
+- Kevin Valencio Patsy (210711013) - Frontend
+- Reynold Kunarto (210711015) - Full Stack + Hosting
+- Marselinus Dira Agaska (210711058) - Frontend
 
 ## Username & Password Login:
-Login User:
-Email:  romeozerosix@gmail.com
-Password: romeozerosix
-Login Admin:
-Email:  admin@admin.com
-Password: admin123
 
-Bonus yang diambil:
-- Hosting:
-    -Backend: https://pw2023-a-9-rentalmobil.up.railway.app
-    -Frontend: https://pw-2023-a-9-react.vercel.app
-- Routes API:
-    -POST /register - register
-    -POST /login - login
+- **Login User:**
+  - Email: romeozerosix@gmail.com
+  - Password: romeozerosix
 
-    -POST /admin/login - loginAdmin
-    -POST /admin/register - registerAdmin
+- **Login Admin:**
+  - Email: admin@admin.com
+  - Password: admin123
 
-    -GET /cabang - GetAllCabang
-    -POST /cabang - CreateCabang
-    -GET /cabang/{id} - Show by id
-    -PUT /cabang/{id} - Update Cabang
-    -DELETE /cabang/{id} - Delete Cabang
+## Bonus yang diambil:
 
-    -GET /mobil - GetAllMobil
-    -POST /mobil - Create Mobil
-    -GET /mobil/{id} - Show by id
-    -GET /mobil/cabang/{id} - showMobilByCabang
-    -PATCH /mobil/{id} - update mobil
-    -DELETE /mobil/{id} - delete mobil
+- **Hosting:**
+  - Backend: [https://pw2023-a-9-rentalmobil.up.railway.app](https://pw2023-a-9-rentalmobil.up.railway.app)
+  - Frontend: [https://pw-2023-a-9-react.vercel.app](https://pw-2023-a-9-react.vercel.app)
 
-    -GET /transaksi - get all transaksi
-    -POST /transaksi - create transaksi
-    -GET /transaksi/{id} - show by id
-    -GET /transaksi/status/{status} - showTransaksiByUserAndStatus (agak ngebug tak tau kenapa, di local aman)
-    -PATCH /transaksi/{id} - update Status transaksi
-    -DELETE /transaksi/{id} - delete transaksi
+- **Routes API:**
 
-    -GET /review - get all review
-    -POST /review - create review
-    -GET /review/{id} - show by id
-    -GET /review/mobil/{id} - showByMobil
-    -PATCH /review/{id} - update review
-    -DELETE /review/{id} - delete review
+  - `POST /register` - Register
+  - `POST /login` - Login
+  - `POST /admin/login` - Admin Login
+  - `POST /admin/register` - Admin Register
+  - `GET /cabang` - Get All Cabang
+  - `POST /cabang` - Create Cabang
+  - `GET /cabang/{id}` - Show by ID
+  - `PUT /cabang/{id}` - Update Cabang
+  - `DELETE /cabang/{id}` - Delete Cabang
+  - `GET /mobil` - Get All Mobil
+  - `POST /mobil` - Create Mobil
+  - `GET /mobil/{id}` - Show by ID
+  - `GET /mobil/cabang/{id}` - Show Mobil By Cabang
+  - `PATCH /mobil/{id}` - Update Mobil
+  - `DELETE /mobil/{id}` - Delete Mobil
+  - `GET /transaksi` - Get All Transaksi
+  - `POST /transaksi` - Create Transaksi
+  - `GET /transaksi/{id}` - Show by ID
+  - `GET /transaksi/status/{status}` - Show Transaksi By User And Status
+  - `PATCH /transaksi/{id}` - Update Status Transaksi
+  - `DELETE /transaksi/{id}` - Delete Transaksi
+  - `GET /review` - Get All Review
+  - `POST /review` - Create Review
+  - `GET /review/{id}` - Show by ID
+  - `GET /review/mobil/{id}` - Show By Mobil
+  - `PATCH /review/{id}` - Update Review
+  - `DELETE /review/{id}` - Delete Review
+  - `GET /user` - Get All Users
+  - `GET /user/{id}` - Show by ID
+  - `PATCH /user/{id}` - Update User
+  - `POST /user` - Update Profile Pic
+  - `DELETE /user/{id}` - Delete User
 
-    -GET /user - get all
-    -GET /user/{id} - show by id
-    -PATCH /user/{id} - update
-    -POST /user - update profile pic
-    -DELETE /user/{id} - delete
-- React:
-   -Link Repository: https://github.com/Rzero6/PW2023_A_9_React.git
+- **React:**
+  - [Repository Link](https://github.com/Rzero6/PW2023_A_9_React.git)
+
 
   
 
