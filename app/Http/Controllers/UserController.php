@@ -48,7 +48,7 @@ class UserController extends Controller
             if ($validate->fails()) {
                 return response()->json(['message' => $validate->errors()], 400);
             }
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('profil_pic')) {
                 if ($user->profil_pic !== null) {
                     $filename = basename($user->profil_pic);
                     if (Storage::disk('public')->exists('user/' . $filename)) {
@@ -56,10 +56,10 @@ class UserController extends Controller
                     }
                 }
                 $uploadFolder = 'user';
-                $image = $request->file('image');
+                $image = $request->file('profil_pic');
                 $image_uploaded_path = $image->store($uploadFolder, 'public');
                 $uploadedImageResponse = basename($image_uploaded_path);
-                $storeData['image'] = $uploadedImageResponse;
+                $storeData['profil_pic'] = $uploadedImageResponse;
             }
             $user->save();
             return response()->json([
