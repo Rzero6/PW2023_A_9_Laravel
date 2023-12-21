@@ -60,6 +60,7 @@ class UserController extends Controller
                 $image_uploaded_path = $image->store($uploadFolder, 'public');
                 $uploadedImageResponse = basename($image_uploaded_path);
                 $storeData['profil_pic'] = $uploadedImageResponse;
+                $user->profil_pic = $storeData['profil_pic'];
             }
             $user->save();
             return response()->json([
