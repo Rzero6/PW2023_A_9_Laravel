@@ -1,3 +1,69 @@
+## UAS Pemrograman Web Gasal 2023/2024
+
+# Kelas A Kelompok 9
+
+# Anggota Kelompok:
+
+- Kevin Valencio Patsy (210711013) - frontend
+- Reynold Kunarto (210711015) - fullstack + hosting
+- Marselinus Dira Agaska (210711058) - frontend
+
+# Username & Password Login:
+Login User:
+Email:  romeozerosix@gmail.com
+Password: romeozerosix
+Login Admin:
+Email:  admin@admin.com
+Password: admin123
+
+Bonus yang diambil:
+- Hosting:
+    -Backend: https://pw2023-a-9-rentalmobil.up.railway.app
+    -Frontend: https://pw-2023-a-9-react.vercel.app
+- Routes API:
+    -POST /register - register
+    -POST /login - login
+
+    -POST /admin/login - loginAdmin
+    -POST /admin/register - registerAdmin
+
+    -GET /cabang - GetAllCabang
+    -POST /cabang - CreateCabang
+    -GET /cabang/{id} - Show by id
+    -PUT /cabang/{id} - Update Cabang
+    -DELETE /cabang/{id} - Delete Cabang
+
+    -GET /mobil - GetAllMobil
+    -POST /mobil - Create Mobil
+    -GET /mobil/{id} - Show by id
+    -GET /mobil/cabang/{id} - showMobilByCabang
+    -PATCH /mobil/{id} - update mobil
+    -DELETE /mobil/{id} - delete mobil
+
+    -GET /transaksi - get all transaksi
+    -POST /transaksi - create transaksi
+    -GET /transaksi/{id} - show by id
+    -GET /transaksi/status/{status} - showTransaksiByUserAndStatus (agak ngebug tak tau kenapa, di local aman)
+    -PATCH /transaksi/{id} - update Status transaksi
+    -DELETE /transaksi/{id} - delete transaksi
+
+    -GET /review - get all review
+    -POST /review - create review
+    -GET /review/{id} - show by id
+    -GET /review/mobil/{id} - showByMobil
+    -PATCH /review/{id} - update review
+    -DELETE /review/{id} - delete review
+
+    -GET /user - get all
+    -GET /user/{id} - show by id
+    -PATCH /user/{id} - update
+    -POST /user - update profile pic
+    -DELETE /user/{id} - delete
+- React:
+   -Link Repository: https://github.com/Rzero6/PW2023_A_9_React.git
+
+  
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
