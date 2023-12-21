@@ -44,7 +44,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/transaksi', [TransaksiController::class, 'index']);
     Route::post('/transaksi', [TransaksiController::class, 'store']);
     Route::get('/transaksi/{id}', [TransaksiController::class, 'show']);
-    Route::get('/transaksi/{status}', [TransaksiController::class, 'showTransaksiByUserAndStatus']);
+    Route::get('/transaksi/status/{status}', [TransaksiController::class, 'showTransaksiByUserAndStatus']);
     Route::patch('/transaksi/{id}', [TransaksiController::class, 'updateStatus']);
     Route::delete('/transaksi/{id}', [TransaksiController::class, 'destroy']);
 
