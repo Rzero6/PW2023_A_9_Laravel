@@ -1,14 +1,14 @@
-## UAS Pemrograman Web Gasal 2023/2024
+# UAS Pemrograman Web Gasal 2023/2024
 
-# Kelas A Kelompok 9
+## Kelas A Kelompok 9
 
-# Anggota Kelompok:
+## Anggota Kelompok:
 
 - Kevin Valencio Patsy (210711013) - frontend
 - Reynold Kunarto (210711015) - fullstack + hosting
 - Marselinus Dira Agaska (210711058) - frontend
 
-# Username & Password Login:
+## Username & Password Login:
 Login User:
 Email:  romeozerosix@gmail.com
 Password: romeozerosix
