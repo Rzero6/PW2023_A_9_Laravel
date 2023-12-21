@@ -154,7 +154,7 @@ class TransaksiController extends Controller
     {
         try {
             $idUser = Auth::user()->id;
-            $transaksi = Transaksi::where('user_id', $idUser)
+            $transaksi = Transaksi::where('id_peminjam', $idUser)
                 ->where('status', $status)
                 ->get();
 
