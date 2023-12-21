@@ -47,12 +47,12 @@ class TransaksiController extends Controller
                 'waktu_pickup' => 'required|date_format:Y-m-d',
                 'waktu_dropoff' => 'required|date_format:Y-m-d',
                 'metode_pembayaran' => 'required',
-                'details' => 'required',
-                'total' => 'required|numeric',
             ]);
             if ($validate->fails()) {
                 return response()->json(['message' => $validate->errors()], 400);
             }
+
+
             $idUser = Auth::user()->id;
             $user = User::find($idUser);
             if (is_null($user)) {
@@ -67,6 +67,11 @@ class TransaksiController extends Controller
                     'message' => 'Mobil Not Found'
                 ], 404);
             }
+            $pickupDate = new \DateTime($request->waktu_pickup);
+            $dropoffDate = new \DateTime($request->waktu_dropoff);
+            $interval = $pickupDate->diff($dropoffDate);
+            $storeData['total'] = $interval->days * $mobil->harga_sewa;
+
             if ($storeData['id_cabang_pickup'] === $storeData['id_cabang_dropoff']) {
                 $cabang = Cabang::find($storeData['id_cabang_pickup']);
                 if (is_null($cabang)) {
@@ -189,6 +194,11 @@ class TransaksiController extends Controller
                 $user = User::find($transaksi->id_peminjam);
                 if (!$user) throw new \Exception("User tidak ditemukan");
                 $mobil->disewa = 0;
+                if ($request->status === 'batal') {
+                    $mobil->id_cabang = $transaksi->id_cabang_pickup;
+                } else {
+                    $mobil->id_cabang = $transaksi->id_cabang_dropoff;
+                }
                 $mobil->save();
                 $user->menyewa = 0;
                 $user->save();

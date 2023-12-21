@@ -17,7 +17,6 @@ class Transaksi extends Model
         'waktu_pickup',
         'waktu_dropoff',
         'metode_pembayaran',
-        'details',
         'mobil',
         'peminjam',
         'pickup',

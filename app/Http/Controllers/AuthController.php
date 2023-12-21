@@ -25,7 +25,9 @@ class AuthController extends Controller
                 'password' => 'required|min:8',
             ]);
 
-            if ($validate->fails()) new \Exception($validate->errors());
+            if ($validate->fails()) {
+                return response()->json(['message' => $validate->errors()], 400);
+            }
             $registrationData['password'] = bcrypt($request->password);
             $registrationData['menyewa'] = false;
             $registrationData['profil_pic'] = 'https://picsum.photos/200';
@@ -114,7 +116,9 @@ class AuthController extends Controller
                 'password' => 'required|min:8',
             ]);
 
-            if ($validate->fails()) new \Exception($validate->errors());
+            if ($validate->fails()) {
+                return response()->json(['message' => $validate->errors()], 400);
+            }
             $registrationData['password'] = bcrypt($request->password);
             $registrationData['menyewa'] = false;
             $registrationData['profil_pic'] = 'https://picsum.photos/200';

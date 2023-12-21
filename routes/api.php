@@ -58,5 +58,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', [UserController::class, 'index']);
     Route::get('/user/{id}', [UserController::class, 'show']);
     Route::patch('/user/{id}', [UserController::class, 'update']);
+    Route::post('/user', [UserController::class, 'updateProfilPic']);
     Route::delete('/user/{id}', [UserController::class, 'destroy']);
 });

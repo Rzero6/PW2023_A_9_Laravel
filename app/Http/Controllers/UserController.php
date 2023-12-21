@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -30,6 +31,52 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
+    public function updateProfilPic(Request $request)
+    {
+        try {
+            $idUser = Auth::user()->id;
+            $user = User::find($idUser);
+            if (is_null($user)) {
+                return response([
+                    'message' => 'User Not Found'
+                ], 404);
+            }
+            $storeData = $request->all();
+            $validate = Validator::make($storeData, [
+                'profil_pic' => 'required|image:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            if ($validate->fails()) {
+                return response()->json(['message' => $validate->errors()], 400);
+            }
+            if ($request->hasFile('image')) {
+                if ($user->profil_pic !== null) {
+                    $filename = basename($user->profil_pic);
+                    if (Storage::disk('public')->exists('user/' . $filename)) {
+                        Storage::disk('public')->delete('user/' . $filename);
+                    }
+                }
+                $uploadFolder = 'user';
+                $image = $request->file('image');
+                $image_uploaded_path = $image->store($uploadFolder, 'public');
+                $uploadedImageResponse = basename($image_uploaded_path);
+                $storeData['image'] = $uploadedImageResponse;
+            }
+            $user->save();
+            return response()->json([
+                "status" => true,
+                "message" => 'Berhasil update gambar',
+                "data" => $user
+            ], 200); //status code 200 = success
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => false,
+                "message" => $e->getMessage(),
+                "data" => []
+            ], 400); //status code 400 = bad request
+        }
+    }
+
+
     public function show($id)
     {
         try {
@@ -61,13 +108,12 @@ class UserController extends Controller
 
             if (!$user) throw new \Exception("User tidak ditemukan");
             $updatedData = $request->only([
-                'nama', 'email', 'password', 'profil_pic'
+                'nama', 'email', 'password'
             ]);
             $rules = [
                 'nama' => 'sometimes|required',
                 'email' => 'sometimes|required|email:rfc,dns|unique:users,email,' . $id,
                 'password' => 'sometimes|required|min:8',
-                'profil_pic' => 'sometimes|required|image:jpeg,png,jpg,gif,svg|max:2048',
             ];
             $validate = Validator::make($updatedData, $rules);
             if ($validate->fails()) {
@@ -80,19 +126,6 @@ class UserController extends Controller
                 if ($request->has($key)) {
                     $user->{$key} = $value;
                 }
-            }
-            if ($request->hasFile('image')) {
-                if ($user->image !== null) {
-                    $filename = basename($user->image);
-                    if (Storage::disk('public')->exists('user/' . $filename)) {
-                        Storage::disk('public')->delete('user/' . $filename);
-                    }
-                }
-                $uploadFolder = 'user';
-                $image = $request->file('image');
-                $image_uploaded_path = $image->store($uploadFolder, 'public');
-                $uploadedImageResponse = basename($image_uploaded_path);
-                $user->image = $uploadedImageResponse;
             }
             $user->save();
             return response()->json([
@@ -118,7 +151,12 @@ class UserController extends Controller
             $user = User::find($id);
 
             if (!$user) throw new \Exception("User tidak ditemukan");
-
+            if ($user->profil_pic !== null) {
+                $filename = basename($user->profil_pic);
+                if (Storage::disk('public')->exists('user/' . $filename)) {
+                    Storage::disk('public')->delete('user/' . $filename);
+                }
+            }
             $user->delete();
             return response()->json([
                 "status" => true,

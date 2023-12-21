@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('waktu_pickup');
             $table->date('waktu_dropoff');
             $table->string('metode_pembayaran');
-            $table->string('details');
             $table->string('mobil');
             $table->string('peminjam');
             $table->string('pickup');
